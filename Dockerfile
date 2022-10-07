@@ -46,13 +46,13 @@ RUN apk -U upgrade && \
   proftpd-mod_wrap2_file \
   proftpd-mod_wrap2_redis \
   proftpd-mod_wrap2_sql \
-  proftpd-utils 
+  proftpd-utils
 
 COPY ./config/. /etc/
 COPY ./bin/. /usr/local/bin/
 
 FROM stage
-ARG BUILD_DATE="$(date +'%Y-%m-%d %H:%M')" 
+ARG BUILD_DATE="$(date +'%Y-%m-%d %H:%M')"
 
 LABEL \
   org.label-schema.name="proftpd" \
@@ -66,12 +66,12 @@ LABEL \
   org.label-schema.vcs-type="Git" \
   org.label-schema.schema-version="latest" \
   org.label-schema.vendor="CasjaysDev" \
-  maintainer="CasjaysDev <docker-admin@casjaysdev.com>" 
+  maintainer="CasjaysDev <docker-admin@casjaysdev.com>"
 
 EXPOSE 21
 
 WORKDIR /data
-VOLUME [ "/data" ] [ "/data", "/config" ]
+VOLUME [ "/data", "/config" ]
 
-HEALTHCHECK CMD [ "/usr/local/bin/entrypoint-proftpd.sh" "healthcheck" ]
+HEALTHCHECK --interval=15s --timeout=3s CMD [ "/usr/local/bin/entrypoint-proftpd.sh" "healthcheck" ]
 ENTRYPOINT [ "/usr/local/bin/entrypoint-proftpd.sh" ]
