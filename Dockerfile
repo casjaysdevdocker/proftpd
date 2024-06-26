@@ -46,7 +46,7 @@ ARG DEFAULT_TEMPLATE_DIR
 ARG DISTRO_VERSION
 ARG PHP_VERSION
 
-ARG PACK_LIST="bash proftpd proftpd*"
+ARG PACK_LIST="bash proftpd proftpd-*"
 
 ENV ENV=~/.bashrc
 ENV SHELL="/bin/sh"
