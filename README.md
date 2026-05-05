@@ -19,17 +19,17 @@ dockermgr update proftp
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/proftp/rootfs"
+mkdir -p "$HOME/.local/share/srv/docker/proftp/volumes"
 git clone "https://github.com/dockermgr/proftp" "$HOME/.local/share/CasjaysDev/dockermgr/proftp"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/proftp/rootfs/." "$HOME/.local/share/srv/docker/proftp/rootfs/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/proftp/rootfs/." "$HOME/.local/share/srv/docker/proftp/volumes/"
 docker run -d \
 --restart always \
 --privileged \
 --name casjaysdevdocker-proftp \
 --hostname proftp \
 -e TZ=${TIMEZONE:-America/New_York} \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/rootfs/data:/data:z" \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/rootfs/config:/config:z" \
+-v "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/volumes/data:/data:z" \
+-v "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/volumes/config:/config:z" \
 -p 80:80 \
 casjaysdevdocker/proftp:latest
 ```
@@ -46,8 +46,8 @@ services:
       - TZ=America/New_York
       - HOSTNAME=proftp
     volumes:
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/rootfs/data:/data:z"
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/rootfs/config:/config:z"
+      - "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/volumes/data:/data:z"
+      - "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/volumes/config:/config:z"
     ports:
       - 80:80
     restart: always
