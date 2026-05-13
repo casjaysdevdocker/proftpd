@@ -1,6 +1,6 @@
-## 👋 Welcome to proftp 🚀  
+## 👋 Welcome to proftpd 🚀  
 
-proftp README  
+proftpd README  
   
   
 ## Install my system scripts  
@@ -13,25 +13,26 @@ proftp README
 ## Automatic install/update  
   
 ```shell
-dockermgr update proftp
+dockermgr update proftpd
 ```
   
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/proftp/volumes"
-git clone "https://github.com/dockermgr/proftp" "$HOME/.local/share/CasjaysDev/dockermgr/proftp"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/proftp/rootfs/." "$HOME/.local/share/srv/docker/proftp/volumes/"
+dockerHome="/var/lib/srv/$USER/docker/casjaysdevdocker/proftpd/proftpd/latest/rootfs"
+mkdir -p "/var/lib/srv/$USER/docker/proftpd/rootfs"
+git clone "https://github.com/dockermgr/proftpd" "$HOME/.local/share/CasjaysDev/dockermgr/proftpd"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/proftpd/rootfs/." "$dockerHome/"
 docker run -d \
 --restart always \
 --privileged \
---name casjaysdevdocker-proftp \
---hostname proftp \
+--name casjaysdevdocker-proftpd-latest \
+--hostname proftpd \
 -e TZ=${TIMEZONE:-America/New_York} \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/volumes/data:/data:z" \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/volumes/config:/config:z" \
+-v "$dockerHome/data:/data:z" \
+-v "$dockerHome/config:/config:z" \
 -p 80:80 \
-casjaysdevdocker/proftp:latest
+casjaysdevdocker/proftpd:latest
 ```
   
 ## via docker-compose  
@@ -40,14 +41,14 @@ casjaysdevdocker/proftp:latest
 version: "2"
 services:
   ProjectName:
-    image: casjaysdevdocker/proftp
-    container_name: casjaysdevdocker-proftp
+    image: casjaysdevdocker/proftpd
+    container_name: casjaysdevdocker-proftpd
     environment:
       - TZ=America/New_York
-      - HOSTNAME=proftp
+      - HOSTNAME=proftpd
     volumes:
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/volumes/data:/data:z"
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-proftp/volumes/config:/config:z"
+      - "/var/lib/srv/$USER/docker/casjaysdevdocker/proftpd/proftpd/latest/rootfs/data:/data:z"
+      - "/var/lib/srv/$USER/docker/casjaysdevdocker/proftpd/proftpd/latest/rootfs/config:/config:z"
     ports:
       - 80:80
     restart: always
@@ -56,19 +57,19 @@ services:
 ## Get source files  
   
 ```shell
-dockermgr download src casjaysdevdocker/proftp
+dockermgr download src casjaysdevdocker/proftpd
 ```
   
 OR
   
 ```shell
-git clone "https://github.com/casjaysdevdocker/proftp" "$HOME/Projects/github/casjaysdevdocker/proftp"
+git clone "https://github.com/casjaysdevdocker/proftpd" "$HOME/Projects/github/casjaysdevdocker/proftpd"
 ```
   
 ## Build container  
   
 ```shell
-cd "$HOME/Projects/github/casjaysdevdocker/proftp"
+cd "$HOME/Projects/github/casjaysdevdocker/proftpd"
 buildx 
 ```
   
